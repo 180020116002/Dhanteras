@@ -8,25 +8,20 @@
 <meta name="theme-color" content="#3a0d0a">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://180020116002.github.io/Dhanteras/">
-
-<!-- Open Graph / WhatsApp / Facebook Preview Card -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Shubh Dhanteras 🪔">
-<meta property="og:title" content="Shubh Dhanteras 🪔 | A Special Blessing Just For You ✨">
-<meta property="og:description" content="🪙 Golden coins are raining for you! Tap to gather Lakshmi ji's blessings and reveal your prosperity wish. 🌟">
+<meta property="og:site_name" content="Shubh Dhanteras">
+<meta property="og:title" content="Shubh Dhanteras 🪔 A wish, just for you">
+<meta property="og:description" content="Let abundance rain down. Tap in, gather the golden rain and open your Dhanteras wish.">
 <meta property="og:url" content="https://180020116002.github.io/Dhanteras/">
 <meta property="og:image" content="https://raw.githubusercontent.com/180020116002/Dhanteras/main/og-image.png">
 <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/180020116002/Dhanteras/main/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Shubh Dhanteras - Golden coin shower with Lakshmi ji blessings">
-
-<!-- Twitter / X -->
+<meta property="og:image:alt" content="Shubh Dhanteras written in gold with golden coins raining down on a deep maroon background">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://180020116002.github.io/Dhanteras/">
-<meta name="twitter:title" content="Shubh Dhanteras 🪔 | A Special Blessing Just For You ✨">
-<meta name="twitter:description" content="🪙 Golden coins are raining for you! Tap to gather Lakshmi ji's blessings and reveal your prosperity wish. 🌟">
+<meta name="twitter:title" content="Shubh Dhanteras 🪔 A wish, just for you">
+<meta name="twitter:description" content="Let abundance rain down. Tap in, gather the golden rain and open your Dhanteras wish.">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/180020116002/Dhanteras/main/og-image.png">
 <link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Hind:wght@300;400&display=swap" rel="stylesheet">
 <style>
@@ -70,16 +65,6 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 @keyframes drip{0%{transform:translateY(-6px);opacity:0}30%{opacity:1}100%{transform:translateY(9px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.lak .c{animation:none}}
 @media (prefers-reduced-motion:reduce){.mandala,#kalash,.card h1{animation:none}}
-
-.share-box{display:flex;gap:12px;justify-content:center;align-items:center;margin:22px 0 8px;flex-wrap:wrap;position:relative;z-index:20}
-.btn-share{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f5c451,#d4931a);color:#2b0e06;border:none;padding:11px 22px;border-radius:24px;font-family:'Hind',system-ui,sans-serif;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 18px rgba(245,196,81,.35);transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;text-decoration:none}
-.btn-share:hover{transform:scale(1.05);box-shadow:0 6px 24px rgba(245,196,81,.6)}
-.btn-share:active{transform:scale(.97)}
-.btn-share.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 4px 18px rgba(37,211,102,.4)}
-.btn-share.btn-copy{background:rgba(245,196,81,.18);color:var(--gold-hi);border:1px solid rgba(245,196,81,.45)}
-.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(26,8,6,.95);border:1px solid var(--gold);color:var(--gold-hi);padding:10px 22px;border-radius:22px;font-size:13px;letter-spacing:.02em;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,.7)}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 </style>
 </head>
 <body>
@@ -124,13 +109,8 @@ canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 <p>May Lakshmi ji fill your home with abundance, and may Lord Kuber keep your fortunes flowing all year. May every rupee that finds you bring peace, and every success find its way to your door.</p>
 <p>You gathered <span class="tot" id="tot"></span> today. May this year bring a thousand times more.</p>
 <p class="from" id="from"></p>
-<div class="share-box">
-  <button id="waBtn" class="btn-share btn-wa" type="button">Share on WhatsApp 📲</button>
-  <button id="copyBtn" class="btn-share btn-copy" type="button">Copy Link 🔗</button>
-</div>
 <p class="again">Tap anywhere to let it rain again</p>
 </div></div>
-<div id="copyToast" class="toast">✨ Blessing link copied! Share it with loved ones 🪔</div>
 <script>
 (function(){
 var pet=document.getElementById('pet'),s='';
@@ -284,71 +264,6 @@ function loop(){
   requestAnimationFrame(loop);
 }
 loop();
-
-// WhatsApp & Share handler
-(function(){
-  var wa = document.getElementById('waBtn');
-  var cp = document.getElementById('copyBtn');
-  var toast = document.getElementById('copyToast');
-
-  function getBaseUrl(){
-    var url = window.location.href.split('#')[0];
-    if(!url || url.indexOf('http') !== 0){
-      return 'https://180020116002.github.io/Dhanteras/';
-    }
-    return url;
-  }
-
-  function getShareMsg(){
-    var amtEl = document.getElementById('tot');
-    var amtStr = (amtEl && amtEl.textContent) ? amtEl.textContent : '₹1,00,000+';
-    return '🪔 *Shubh Dhanteras!* ✨\n\nI just collected *' + amtStr + '* in Lakshmi ji's golden coin rain shower! 🪙🌟\n\nTap here to collect your golden blessings and see your fortune:\n' + getBaseUrl() + '\n\nMay Maa Lakshmi bring endless peace, happiness and prosperity to your home! 🪔✨';
-  }
-
-  function showNotification(msg){
-    if(!toast) return;
-    if(msg) toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(function(){ toast.classList.remove('show'); }, 2600);
-  }
-
-  if(wa){
-    ['pointerdown','click','touchstart','touchend'].forEach(function(evt){
-      wa.addEventListener(evt, function(e){ e.stopPropagation(); });
-    });
-    wa.addEventListener('click', function(e){
-      e.preventDefault();
-      var waUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(getShareMsg());
-      window.open(waUrl, '_blank');
-    });
-  }
-
-  if(cp){
-    ['pointerdown','click','touchstart','touchend'].forEach(function(evt){
-      cp.addEventListener(evt, function(e){ e.stopPropagation(); });
-    });
-    cp.addEventListener('click', function(e){
-      e.preventDefault();
-      var shareUrl = getBaseUrl();
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(shareUrl).then(function(){
-          showNotification('✨ Link copied! Share with your family & friends 🪔');
-        }).catch(function(){
-          showNotification('Link: ' + shareUrl);
-        });
-      } else {
-        var t = document.createElement('textarea');
-        t.value = shareUrl;
-        document.body.appendChild(t);
-        t.select();
-        document.execCommand('copy');
-        document.body.removeChild(t);
-        showNotification('✨ Link copied! Share with your family & friends 🪔');
-      }
-    });
-  }
-})();
-
 })();
 </script>
 </body>
